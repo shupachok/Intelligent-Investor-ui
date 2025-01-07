@@ -1,0 +1,24 @@
+<h2>Intelligence Investor</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Symbol</th>
+      <th>PE Ratio</th>
+      <th>PB Ratio</th>
+      <th>Market Cap</th>
+      <th>Business Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for ( stock of this.stockDatas;track stock.symbol){
+      <tr>
+        <td>{{ stock.symbol }}</td>
+        <td>{{ stock.peRatio }}</td>
+        <td>{{ stock.pbRatio }}</td>
+        <td>{{ stock.marketCap }}</td>
+        <td>{{ stock.businessType }}</td>
+      </tr>
+    }
+  </tbody>
+</table>
