@@ -1,13 +1,16 @@
 import {Component, DestroyRef, inject, OnInit} from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
 import {Subscription} from 'rxjs';
 import {StockService} from './service/StockService';
 import {StockDetail} from './model/StockDetail';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   standalone: true,
+  imports: [
+    FormsModule
+  ],
   styleUrl: './app.component.css'
 })
 export class AppComponent implements OnInit {
@@ -21,15 +24,22 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     const subscription: Subscription = this.stockService
-                .getStockData({rowPerPage: this.rowPerPage,pageNumber:this.pageNumber})
+                .getStockData({rowPerPage: this.rowPerPage,pageNumber:this.pageNumber,symbol:''})
                 .subscribe(res => {
-                  console.log(res);
                   this.stockDatas = res.data;
-                  console.log(this.stockDatas);
                 });
 
     this.destroyRef.onDestroy(()=>{
       subscription.unsubscribe();
     })
+  }
+
+  searchStockDetail(searchSymbol: string) {
+    console.log("----------searchStockDetail-----------");
+    this.stockService
+      .getStockData({rowPerPage: this.rowPerPage,pageNumber:this.pageNumber,symbol:searchSymbol})
+      .subscribe(res => {
+        this.stockDatas = res.data;
+      });
   }
 }

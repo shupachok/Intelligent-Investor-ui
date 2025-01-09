@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {StockDataTable} from '../model/StockDataTable';
 
@@ -11,7 +11,7 @@ export class StockService {
 
   constructor(private http: HttpClient) { }
 
-  getStockData(filter: {rowPerPage: number, pageNumber: number}): Observable<StockDataTable> {
+  getStockData(filter: {rowPerPage: number, pageNumber: number,symbol: string}): Observable<StockDataTable> {
 
     return this.http.get<StockDataTable>(this.apiDataStockUrl, { params: filter });
   }
